@@ -1,0 +1,1 @@
+# sitefinity-office365-mail-sender
