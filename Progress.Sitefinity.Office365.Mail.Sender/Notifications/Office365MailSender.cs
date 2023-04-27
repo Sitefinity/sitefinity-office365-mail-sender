@@ -6,13 +6,13 @@ using Microsoft.Graph;
 using Microsoft.Graph.Models;
 using Microsoft.Graph.Models.ODataErrors;
 using Microsoft.Graph.Users.Item.SendMail;
+using Progress.Sitefinity.Office365.Mail.Sender.Configuration;
 using Progress.Sitefinity.Office365.Mail.Sender.Model;
 using Telerik.Sitefinity.Services.Notifications;
 using Telerik.Sitefinity.Services.Notifications.Composition;
-using Telerik.Sitefinity.Services.Notifications.Configuration;
 using Telerik.Sitefinity.Services.Notifications.Model;
 
-namespace Progress.Sitefinity.Office365.MailSender
+namespace Progress.Sitefinity.Office365.MailSender.Notifications
 {
     /// <summary>
     /// Office365 mail sender
@@ -20,10 +20,10 @@ namespace Progress.Sitefinity.Office365.MailSender
     public class Office365MailSender : Sender, IBatchSender
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="MicrosoftGraphSender" /> class.
+        /// Initializes a new instance of the <see cref="Office365MailSender" /> class.
         /// </summary>
         /// <param name="senderProfile">The sender profile.</param>
-        public Office365MailSender(SmtpSenderProfileElement senderProfile)
+        public Office365MailSender(Office365SenderProfileElement senderProfile)
         {
             this.profile = senderProfile;
         }
@@ -52,10 +52,12 @@ namespace Progress.Sitefinity.Office365.MailSender
             }
         }
 
+        /// <inheritdoc />
         public override void Dispose()
         {
         }
 
+        /// <inheritdoc />
         public SendResult SendMessage(IMessageJobRequest messageJob, IEnumerable<ISubscriberResponse> subscribers)
         {
             SendResult result = new SendResult();
@@ -83,13 +85,14 @@ namespace Progress.Sitefinity.Office365.MailSender
             return result;
         }
 
+        /// <inheritdoc />
         public override SendResult SendMessage(IMessageInfo messageInfo, ISubscriberRequest subscriber)
         {
             var requestBody = new SendMailPostRequestBody
             {
                 Message = new Message()
                 {
-                    Subject = "Meet for lunch TEST EMAIL?",
+                    Subject = messageInfo.Subject,
                     Body = new ItemBody
                     {
                         ContentType = BodyType.Text,
@@ -101,7 +104,7 @@ namespace Progress.Sitefinity.Office365.MailSender
                         {
                             EmailAddress = new EmailAddress
                             {
-                                Address = ""
+                                Address = subscriber.Email
                             }
                         }
                     },
@@ -111,7 +114,7 @@ namespace Progress.Sitefinity.Office365.MailSender
 
             try
             {
-                var result = Task.Run<Task>(async () => await this.GraphClient.Users[""].SendMail.PostAsync(requestBody)).Result;
+                var result = Task.Run<Task>(async () => await this.GraphClient.Users[messageInfo.SenderEmailAddress].SendMail.PostAsync(requestBody)).Result;
             }
             catch (ODataError odataError)
             {
@@ -144,15 +147,13 @@ namespace Progress.Sitefinity.Office365.MailSender
         /// </summary>
         /// <param name="profile">the profile</param>
         /// <returns>Return microsoft graph client</returns>
-        private GraphServiceClient CreateGraphClient(SmtpSenderProfileElement profile)
+        private GraphServiceClient CreateGraphClient(Office365SenderProfileElement profile)
         {
             try
             {
-                var scopes = new string[]
-                {
-                   "https://graph.microsoft.com/.default"
-                };
-                ClientSecretCredential credential = new ClientSecretCredential("", "", "");
+                var scopes = profile.Scopes.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+                ClientSecretCredential credential = new ClientSecretCredential(profile.TenantId, profile.ClientId, profile.ClientSecret);
                 GraphServiceClient graphClient = new GraphServiceClient(credential, scopes);
 
                 return graphClient;
@@ -163,7 +164,7 @@ namespace Progress.Sitefinity.Office365.MailSender
             }
         }
 
-        private readonly SmtpSenderProfileElement profile;
+        private readonly Office365SenderProfileElement profile;
         private GraphServiceClient graphClient;
     }
 }
