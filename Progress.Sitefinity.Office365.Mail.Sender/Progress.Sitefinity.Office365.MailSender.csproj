@@ -356,9 +356,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\Office365SenderProfileElement.cs" />
+    <Compile Include="Configuration\Office365SenderProfileProxy.cs" />
     <Compile Include="Model\MessageInfo.cs" />
-    <Compile Include="Office365MailSender.cs" />
+    <Compile Include="Notifications\Office365MailSender.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
