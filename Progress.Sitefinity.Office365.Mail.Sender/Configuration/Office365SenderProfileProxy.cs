@@ -185,6 +185,94 @@ namespace Progress.Sitefinity.Office365.Mail.Sender.Configuration
         }
 
         /// <summary>
+        /// Gets or sets the host.
+        /// </summary>
+        /// <value>The host.</value>
+        public string Host
+        {
+            get
+            {
+                return this.CustomProperties[Office365Keys.Host];
+            }
+
+            set
+            {
+                this.CustomProperties[Office365Keys.Host] = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the port.
+        /// </summary>
+        /// <value>The port.</value>
+        public int Port
+        {
+            get
+            {
+                int port;
+                int.TryParse(this.CustomProperties[Office365Keys.Port], out port);
+                return port;
+            }
+
+            set
+            {
+                this.CustomProperties[Office365Keys.Port] = value.ToString();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the username.
+        /// </summary>
+        /// <value>The username.</value>
+        public string Username
+        {
+            get
+            {
+                return this.CustomProperties[Office365Keys.Username];
+            }
+
+            set
+            {
+                this.CustomProperties[Office365Keys.Username] = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the password.
+        /// </summary>
+        /// <value>The password.</value>
+        public string Password
+        {
+            get
+            {
+                return this.CustomProperties[Office365Keys.Password];
+            }
+
+            set
+            {
+                this.CustomProperties[Office365Keys.Password] = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the smtp server will use SSL.
+        /// </summary>
+        public bool UseSSL
+        {
+            get
+            {
+                bool useSsl;
+                bool.TryParse(this.CustomProperties[Office365Keys.UseSsl], out useSsl);
+                return useSsl;
+            }
+
+            set
+            {
+                this.CustomProperties[Office365Keys.UseSsl] = value.ToString();
+            }
+        }
+
+        /// <summary>
         /// Contains constants that can be used as keys for the SMTP sender profile specific configurations.
         /// </summary>
         public static class Office365Keys
@@ -238,6 +326,31 @@ namespace Progress.Sitefinity.Office365.Mail.Sender.Configuration
             /// Key for the BatchPauseInterval value.
             /// </summary>
             public const string BatchPauseInterval = "batchPauseInterval";
+
+            /// <summary>
+            /// Key for the Password value.
+            /// </summary>
+            public const string Password = "password";
+
+            /// <summary>
+            /// Key for the Username value.
+            /// </summary>
+            public const string Username = "username";
+
+            /// <summary>
+            /// Key for the Host value.
+            /// </summary>
+            public const string Host = "host";
+
+            /// <summary>
+            /// Key for the Port value.
+            /// </summary>
+            public const string Port = "port";
+
+            /// <summary>
+            /// Key for the UseSsl value.
+            /// </summary>
+            public const string UseSsl = "useSSL";
         }
 
         /// <summary>
