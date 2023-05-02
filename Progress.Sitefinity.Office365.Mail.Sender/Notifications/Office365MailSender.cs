@@ -95,8 +95,8 @@ namespace Progress.Sitefinity.Office365.MailSender.Notifications
                     Subject = messageInfo.Subject,
                     Body = new ItemBody
                     {
-                        ContentType = BodyType.Text,
-                        Content = "The new cafeteria is open TEST Content."
+                        ContentType = messageInfo.IsHtml ? BodyType.Html : BodyType.Text,
+                        Content = messageInfo.IsHtml ? messageInfo.BodyHtml : messageInfo.PlainTextVersion
                     },
                     ToRecipients = new List<Recipient>
                     {
