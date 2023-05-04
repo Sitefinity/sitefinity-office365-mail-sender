@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Configuration;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Configuration;
-using Telerik.Sitefinity.Localization;
-using Telerik.Sitefinity.Services.Notifications;
 using Telerik.Sitefinity.Services.Notifications.Configuration;
 using Telerik.Sitefinity.Web.Configuration;
 
