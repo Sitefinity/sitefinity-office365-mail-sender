@@ -5,9 +5,6 @@ using Progress.Sitefinity.Office365.MailSender.Notifications;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.Data;
-using Telerik.Sitefinity.Restriction;
-using Telerik.Sitefinity.Security;
-using Telerik.Sitefinity.Security.Claims;
 using Telerik.Sitefinity.Services.Notifications.Configuration;
 
 namespace Progress.Sitefinity.Office365.Mail.Sender

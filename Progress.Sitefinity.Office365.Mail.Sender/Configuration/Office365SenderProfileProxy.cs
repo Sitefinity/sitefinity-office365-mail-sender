@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Telerik.Sitefinity.Services.Notifications.Configuration;
+﻿using Telerik.Sitefinity.Services.Notifications.Configuration;
 
 namespace Progress.Sitefinity.Office365.Mail.Sender.Configuration
 {
