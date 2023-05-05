@@ -3,7 +3,7 @@
 namespace Progress.Sitefinity.Office365.Mail.Sender.Configuration
 {
     /// <summary>
-    /// A proxy class which declares properties required to configure a smtp client
+    /// A proxy class which declares properties required to configure a Office 365 SMTP client
     /// </summary>
     public class Office365SenderProfileProxy : SenderProfileProxy
     {
@@ -57,7 +57,7 @@ namespace Progress.Sitefinity.Office365.Mail.Sender.Configuration
         }
 
         /// <summary>
-        /// Gets or sets the tenat id.
+        /// Gets or sets the Azure tenant ID.
         /// </summary>
         /// <value>The domain.</value>
         public string TenantId
@@ -74,7 +74,7 @@ namespace Progress.Sitefinity.Office365.Mail.Sender.Configuration
         }
 
         /// <summary>
-        /// Gets or sets the client id.
+        /// Gets or sets the application (client) ID.
         /// </summary>
         /// <value>The domain.</value>
         public string ClientId
@@ -91,7 +91,7 @@ namespace Progress.Sitefinity.Office365.Mail.Sender.Configuration
         }
 
         /// <summary>
-        /// Gets or sets the client secret.
+        /// Gets or sets the client secret value.
         /// </summary>
         /// <value>The domain.</value>
         public string ClientSecret
@@ -108,7 +108,7 @@ namespace Progress.Sitefinity.Office365.Mail.Sender.Configuration
         }
 
         /// <summary>
-        /// Gets or sets the scopes.
+        /// Gets or sets the Microsoft Graph scopes.
         /// </summary>
         /// <value>The domain.</value>
         public string Scopes
@@ -268,7 +268,7 @@ namespace Progress.Sitefinity.Office365.Mail.Sender.Configuration
         }
 
         /// <summary>
-        /// Contains constants that can be used as keys for the SMTP sender profile specific configurations.
+        /// Contains constants that can be used as keys for the Office 365 SMTP sender profile specific configurations.
         /// </summary>
         public static class Office365Keys
         {
@@ -288,7 +288,7 @@ namespace Progress.Sitefinity.Office365.Mail.Sender.Configuration
             public const string DefaultSenderName = "defaultSenderName";
 
             /// <summary>
-            /// Key for the ClientSecret value.
+            /// Key for the TenantId value.
             /// </summary>
             public const string TenantId = "tenantId";
 
