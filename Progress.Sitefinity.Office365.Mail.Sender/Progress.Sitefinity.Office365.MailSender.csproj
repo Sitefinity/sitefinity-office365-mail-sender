@@ -363,6 +363,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\Office365ConfigDescription.cs" />
     <Compile Include="Configuration\Office365SenderProfileElement.cs" />
     <Compile Include="Configuration\Office365SenderProfileProxy.cs" />
     <Compile Include="Model\MessageInfo.cs" />

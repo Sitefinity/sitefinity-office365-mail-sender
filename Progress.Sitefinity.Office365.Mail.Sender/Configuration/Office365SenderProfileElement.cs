@@ -37,7 +37,7 @@ namespace Progress.Sitefinity.Office365.Mail.Sender.Configuration
         /// </summary>
         /// <value>The default tenant ID.</value>
         [ConfigurationProperty(Office365SenderProfileProxy.Office365Keys.TenantId, IsRequired = true)]
-        [DescriptionResource(typeof(ConfigDescriptions), "DefaultSenderEmailAddress")]
+        [DescriptionResource(typeof(Office365ConfigDescription), "DefaultTenantID")]
         public virtual string TenantId
         {
             get
@@ -56,7 +56,7 @@ namespace Progress.Sitefinity.Office365.Mail.Sender.Configuration
         /// </summary>
         /// <value>The default application (client) ID.</value>
         [ConfigurationProperty(Office365SenderProfileProxy.Office365Keys.ClientId, IsRequired = true)]
-        [DescriptionResource(typeof(ConfigDescriptions), "DefaultSenderEmailAddress")]
+        [DescriptionResource(typeof(Office365ConfigDescription), "DefaultClientID")]
         public virtual string ClientId
         {
             get
@@ -75,7 +75,7 @@ namespace Progress.Sitefinity.Office365.Mail.Sender.Configuration
         /// </summary>
         /// <value>The default client secret value.</value>
         [ConfigurationProperty(Office365SenderProfileProxy.Office365Keys.ClientSecret, IsRequired = true)]
-        [DescriptionResource(typeof(ConfigDescriptions), "DefaultSenderEmailAddress")]
+        [DescriptionResource(typeof(Office365ConfigDescription), "DefaultClientSecret")]
         [SecretData]
         public virtual string ClientSecret
         {
@@ -95,7 +95,7 @@ namespace Progress.Sitefinity.Office365.Mail.Sender.Configuration
         /// </summary>
         /// <value>The default Microsoft Graph scopes.</value>
         [ConfigurationProperty(Office365SenderProfileProxy.Office365Keys.Scopes, DefaultValue = "https://graph.microsoft.com/.default", IsRequired = true)]
-        [DescriptionResource(typeof(ConfigDescriptions), "DefaultSenderEmailAddress")]
+        [DescriptionResource(typeof(Office365ConfigDescription), "DefaultScopes")]
         public virtual string Scopes
         {
             get

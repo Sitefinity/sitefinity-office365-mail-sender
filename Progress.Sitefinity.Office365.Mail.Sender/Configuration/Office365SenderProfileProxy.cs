@@ -59,7 +59,7 @@ namespace Progress.Sitefinity.Office365.Mail.Sender.Configuration
         /// <summary>
         /// Gets or sets the Azure tenant ID.
         /// </summary>
-        /// <value>The domain.</value>
+        /// <value>The Azure tenant ID.</value>
         public string TenantId
         {
             get
@@ -76,7 +76,7 @@ namespace Progress.Sitefinity.Office365.Mail.Sender.Configuration
         /// <summary>
         /// Gets or sets the application (client) ID.
         /// </summary>
-        /// <value>The domain.</value>
+        /// <value>The application (client) ID.</value>
         public string ClientId
         {
             get
@@ -93,7 +93,7 @@ namespace Progress.Sitefinity.Office365.Mail.Sender.Configuration
         /// <summary>
         /// Gets or sets the client secret value.
         /// </summary>
-        /// <value>The domain.</value>
+        /// <value>The client secret value.</value>
         public string ClientSecret
         {
             get
@@ -110,7 +110,7 @@ namespace Progress.Sitefinity.Office365.Mail.Sender.Configuration
         /// <summary>
         /// Gets or sets the Microsoft Graph scopes.
         /// </summary>
-        /// <value>The domain.</value>
+        /// <value>The Microsoft Graph scopes.</value>
         public string Scopes
         {
             get

@@ -5,7 +5,9 @@ using Progress.Sitefinity.Office365.MailSender.Notifications;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Configuration;
 using Telerik.Sitefinity.Data;
+using Telerik.Sitefinity.Localization;
 using Telerik.Sitefinity.Services.Notifications.Configuration;
+using Telerik.Sitefinity.Web.Configuration;
 
 namespace Progress.Sitefinity.Office365.Mail.Sender
 {
@@ -27,6 +29,8 @@ namespace Progress.Sitefinity.Office365.Mail.Sender
         {
             if (e.CommandName == "Bootstrapped")
             {
+                Res.RegisterResource<Office365ConfigDescription>();
+
                 using (new ElevatedConfigModeRegion())
                 {
                     var configManager = ConfigManager.GetManager();
