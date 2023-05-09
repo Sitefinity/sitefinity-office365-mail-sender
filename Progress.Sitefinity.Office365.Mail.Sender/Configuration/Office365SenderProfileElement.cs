@@ -35,9 +35,9 @@ namespace Progress.Sitefinity.Office365.Mail.Sender.Configuration
         /// <summary>
         /// Gets or sets the Azure Active Directory tenant ID.
         /// </summary>
-        /// <value>The default tenant ID.</value>
+        /// <value>The tenant ID.</value>
         [ConfigurationProperty(Office365SenderProfileProxy.Office365Keys.TenantId, IsRequired = true)]
-        [DescriptionResource(typeof(Office365ConfigDescription), "DefaultTenantID")]
+        [DescriptionResource(typeof(Office365ConfigDescription), "TenantID")]
         public virtual string TenantId
         {
             get
@@ -54,9 +54,9 @@ namespace Progress.Sitefinity.Office365.Mail.Sender.Configuration
         /// <summary>
         /// Gets or sets the application (client) ID.
         /// </summary>
-        /// <value>The default application (client) ID.</value>
+        /// <value>The application (client) ID.</value>
         [ConfigurationProperty(Office365SenderProfileProxy.Office365Keys.ClientId, IsRequired = true)]
-        [DescriptionResource(typeof(Office365ConfigDescription), "DefaultClientID")]
+        [DescriptionResource(typeof(Office365ConfigDescription), "ClientID")]
         public virtual string ClientId
         {
             get
@@ -73,9 +73,9 @@ namespace Progress.Sitefinity.Office365.Mail.Sender.Configuration
         /// <summary>
         /// Gets or sets the client secret value.
         /// </summary>
-        /// <value>The default client secret value.</value>
+        /// <value>The client secret value.</value>
         [ConfigurationProperty(Office365SenderProfileProxy.Office365Keys.ClientSecret, IsRequired = true)]
-        [DescriptionResource(typeof(Office365ConfigDescription), "DefaultClientSecret")]
+        [DescriptionResource(typeof(Office365ConfigDescription), "ClientSecret")]
         [SecretData]
         public virtual string ClientSecret
         {
@@ -93,9 +93,9 @@ namespace Progress.Sitefinity.Office365.Mail.Sender.Configuration
         /// <summary>
         /// Gets or sets the Microsoft Graph scopes.
         /// </summary>
-        /// <value>The default Microsoft Graph scopes.</value>
+        /// <value>The Microsoft Graph scopes.</value>
         [ConfigurationProperty(Office365SenderProfileProxy.Office365Keys.Scopes, DefaultValue = "https://graph.microsoft.com/.default", IsRequired = true)]
-        [DescriptionResource(typeof(Office365ConfigDescription), "DefaultScopes")]
+        [DescriptionResource(typeof(Office365ConfigDescription), "Scopes")]
         public virtual string Scopes
         {
             get

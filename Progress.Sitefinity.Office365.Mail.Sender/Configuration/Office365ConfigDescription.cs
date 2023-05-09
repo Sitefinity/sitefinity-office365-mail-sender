@@ -7,19 +7,46 @@ using Telerik.Sitefinity.Localization;
 
 namespace Progress.Sitefinity.Office365.Mail.Sender.Configuration
 {
+    /// <summary>
+    /// Represents the string resources for the backend configuration of the Office 365 mail sender.
+    /// </summary>
     [ObjectInfo("Office365ConfigDescription", ResourceClassId = "Office365ConfigDescription")]
     public class Office365ConfigDescription : Resource
     {
-        [ResourceEntry("DefaultTenantID", Value = "Default Azure tenant ID", Description = "Property Caption.", LastModified = "2023/05/09")]
-        public string DefaultTenantId => base["DefaultTenantId"];
+        /// <summary>
+        /// Message: Azure tenant ID
+        /// </summary>
+        [ResourceEntry("TenantID",
+            Value = "Azure Active Directory tenant ID",
+            Description = "Describes configuration element.",
+            LastModified = "2023/05/09")]
+        public string TenantId => base["TenantId"];
 
-        [ResourceEntry("DefaultClientId", Value = "Default application (client) ID", Description = "Property Caption.", LastModified = "2023/05/09")]
-        public string DefaultClientId => base["DefaultClientId"];
+        /// <summary>
+        /// Message: Application (client) ID
+        /// </summary>
+        [ResourceEntry("ClientId",
+            Value = "Application (client) ID",
+            Description = "Describes configuration element.",
+            LastModified = "2023/05/09")]
+        public string ClientId => base["ClientId"];
 
-        [ResourceEntry("DefaultClientSecret", Value = "Default client secret value", Description = "Property Caption.", LastModified = "2023/05/09")]
-        public string DefaultClientSecret => base["DefaultClientSecret"];
+        /// <summary>
+        /// Message: Client secret value
+        /// </summary>
+        [ResourceEntry("ClientSecret",
+            Value = "Client secret value",
+            Description = "Describes configuration element.",
+            LastModified = "2023/05/09")]
+        public string ClientSecret => base["ClientSecret"];
 
-        [ResourceEntry("DefaultScopes", Value = "Default Microsoft Graph scopes (multiple comma-separated ones can be specified)", Description = "Property Caption.", LastModified = "2023/05/09")]
-        public string DefaultScopes => base["DefaultScopes"];
+        /// <summary>
+        /// Message: Microsoft Graph scopes (multiple comma-separated ones can be specified)
+        /// </summary>
+        [ResourceEntry("Scopes",
+            Value = "Microsoft Graph scopes (multiple comma-separated ones can be specified)",
+            Description = "Describes configuration element.",
+            LastModified = "2023/05/09")]
+        public string Scopes => base["Scopes"];
     }
 }

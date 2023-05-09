@@ -57,9 +57,9 @@ namespace Progress.Sitefinity.Office365.Mail.Sender.Configuration
         }
 
         /// <summary>
-        /// Gets or sets the Azure tenant ID.
+        /// Gets or sets the Azure Active Directory tenant ID.
         /// </summary>
-        /// <value>The Azure tenant ID.</value>
+        /// <value>The Azure Active Directory tenant ID.</value>
         public string TenantId
         {
             get
