@@ -8,6 +8,7 @@ using Microsoft.Graph.Models.ODataErrors;
 using Microsoft.Graph.Users.Item.SendMail;
 using Progress.Sitefinity.Office365.Mail.Sender.Configuration;
 using Progress.Sitefinity.Office365.Mail.Sender.Model;
+using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Services.Notifications;
 using Telerik.Sitefinity.Services.Notifications.Composition;
 using Telerik.Sitefinity.Services.Notifications.Model;
@@ -119,7 +120,13 @@ namespace Progress.Sitefinity.Office365.MailSender.Notifications
             catch (ODataError odataError)
             {
                 string message = string.Format("{0}{1}", odataError.Error.Message, odataError.Error.Code);
+                LogException(odataError);
                 throw odataError;
+            }
+            catch(Exception e)
+            {
+                LogException(e);
+                throw e;
             }
 
             return SendResult.ReturnSuccess();
@@ -160,8 +167,14 @@ namespace Progress.Sitefinity.Office365.MailSender.Notifications
             }
             catch (Exception e)
             {
+                LogException(e);
                 throw e;
             }
+        }
+
+        private void LogException(Exception exception)
+        {
+            Log.Write(exception, ConfigurationPolicy.ErrorLog);
         }
 
         private readonly Office365SenderProfileElement profile;

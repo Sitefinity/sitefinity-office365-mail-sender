@@ -1,15 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Configuration;
+using System.Net.Mail;
 using Telerik.Sitefinity.Abstractions;
 using Telerik.Sitefinity.Configuration;
+using Telerik.Sitefinity.Localization;
+using Telerik.Sitefinity.Services.Notifications;
 using Telerik.Sitefinity.Services.Notifications.Configuration;
 using Telerik.Sitefinity.Web.Configuration;
 
 namespace Progress.Sitefinity.Office365.Mail.Sender.Configuration
 {
     /// <summary>
-    /// Contains the settings for the Smtp sender profile that can be used by the notification service.
+    /// Contains the settings for the Office 365 SMTP sender profile that can be used by the notification service.
     /// </summary>
     public class Office365SenderProfileElement : SmtpSenderProfileElement
     {
@@ -29,11 +33,11 @@ namespace Progress.Sitefinity.Office365.Mail.Sender.Configuration
         }
 
         /// <summary>
-        /// Gets or sets the client id.
+        /// Gets or sets the Azure Active Directory tenant ID.
         /// </summary>
-        /// <value>The default sender email address.</value>
+        /// <value>The tenant ID.</value>
         [ConfigurationProperty(Office365SenderProfileProxy.Office365Keys.TenantId, IsRequired = true)]
-        [DescriptionResource(typeof(ConfigDescriptions), "DefaultSenderEmailAddress")]
+        [DescriptionResource(typeof(Office365ConfigDescription), "TenantID")]
         public virtual string TenantId
         {
             get
@@ -48,11 +52,11 @@ namespace Progress.Sitefinity.Office365.Mail.Sender.Configuration
         }
 
         /// <summary>
-        /// Gets or sets the client id.
+        /// Gets or sets the application (client) ID.
         /// </summary>
-        /// <value>The default sender email address.</value>
+        /// <value>The application (client) ID.</value>
         [ConfigurationProperty(Office365SenderProfileProxy.Office365Keys.ClientId, IsRequired = true)]
-        [DescriptionResource(typeof(ConfigDescriptions), "DefaultSenderEmailAddress")]
+        [DescriptionResource(typeof(Office365ConfigDescription), "ClientID")]
         public virtual string ClientId
         {
             get
@@ -67,11 +71,11 @@ namespace Progress.Sitefinity.Office365.Mail.Sender.Configuration
         }
 
         /// <summary>
-        /// Gets or sets the client id.
+        /// Gets or sets the client secret value.
         /// </summary>
-        /// <value>The default sender email address.</value>
+        /// <value>The client secret value.</value>
         [ConfigurationProperty(Office365SenderProfileProxy.Office365Keys.ClientSecret, IsRequired = true)]
-        [DescriptionResource(typeof(ConfigDescriptions), "DefaultSenderEmailAddress")]
+        [DescriptionResource(typeof(Office365ConfigDescription), "ClientSecret")]
         [SecretData]
         public virtual string ClientSecret
         {
@@ -87,11 +91,11 @@ namespace Progress.Sitefinity.Office365.Mail.Sender.Configuration
         }
 
         /// <summary>
-        /// Gets or sets the scopes.
+        /// Gets or sets the Microsoft Graph scopes.
         /// </summary>
-        /// <value>The default sender email address.</value>
+        /// <value>The Microsoft Graph scopes.</value>
         [ConfigurationProperty(Office365SenderProfileProxy.Office365Keys.Scopes, DefaultValue = "https://graph.microsoft.com/.default", IsRequired = true)]
-        [DescriptionResource(typeof(ConfigDescriptions), "DefaultSenderEmailAddress")]
+        [DescriptionResource(typeof(Office365ConfigDescription), "Scopes")]
         public virtual string Scopes
         {
             get
@@ -115,7 +119,6 @@ namespace Progress.Sitefinity.Office365.Mail.Sender.Configuration
         }
 
         /// <inheritdoc />
-        /// <inheritdoc />
         public override Dictionary<string, string> ToDictionary()
         {
             var dict = base.ToDictionary();
@@ -128,42 +131,6 @@ namespace Progress.Sitefinity.Office365.Mail.Sender.Configuration
             return dict;
         }
 
-        private bool SetDefaultSenderEmail(IDictionary<string, string> items)
-        {
-            bool valueChanged = false;
-            string senderEmail;
-            if (items.TryGetValue(Office365SenderProfileProxy.Office365Keys.DefaultSenderEmailAddress, out senderEmail) &&
-                !senderEmail.IsNullOrWhitespace())
-            {
-                if (this.DefaultSenderEmailAddress != senderEmail)
-                {
-                    this.DefaultSenderEmailAddress = senderEmail;
-                    valueChanged = true;
-                }
-            }
-            else
-            {
-                throw new ArgumentException(string.Format("The '{0}' parameter must be specified for the office365 sender profile.", Office365SenderProfileProxy.Office365Keys.DefaultSenderEmailAddress));
-            }
-
-            return valueChanged;
-        }
-
-        private bool SetDefaultSenderName(IDictionary<string, string> items)
-        {
-            bool valueChanged = false;
-            string defaultSenderName;
-            if (items.TryGetValue(Office365SenderProfileProxy.Office365Keys.DefaultSenderName, out defaultSenderName))
-            {
-                if (this.DefaultSenderName != defaultSenderName)
-                {
-                    this.DefaultSenderName = defaultSenderName;
-                    valueChanged = true;
-                }
-            }
-
-            return valueChanged;
-        }
 
         private bool SetTenantId(IDictionary<string, string> items)
         {
@@ -223,146 +190,6 @@ namespace Progress.Sitefinity.Office365.Mail.Sender.Configuration
             else
             {
                 throw new ArgumentException(string.Format("The '{0}' parameter must be specified for the office365 sender profile.", Office365SenderProfileProxy.Office365Keys.DefaultSenderEmailAddress));
-            }
-
-            return valueChanged;
-        }
-
-        private bool SetSenderType(IDictionary<string, string> items)
-        {
-            bool valueChanged = false;
-            string senderType;
-            if (items.TryGetValue(Office365SenderProfileProxy.Office365Keys.SenderType, out senderType))
-            {
-                if (this.SenderType != senderType)
-                {
-                    this.SenderType = senderType;
-                    valueChanged = true;
-                }
-            }
-
-            return valueChanged;
-        }
-
-        private bool SetBatchSize(IDictionary<string, string> items)
-        {
-            bool valueChanged = false;
-            string batchSizeString;
-            int batchSize;
-            if (items.TryGetValue(Office365SenderProfileProxy.Office365Keys.BatchSize, out batchSizeString) &&
-                int.TryParse(batchSizeString, out batchSize))
-            {
-                if (this.BatchSize != batchSize)
-                {
-                    this.BatchSize = batchSize;
-                    valueChanged = true;
-                }
-            }
-
-            return valueChanged;
-        }
-
-        private bool SetBatchPauseInterval(IDictionary<string, string> items)
-        {
-            bool valueChanged = false;
-            string batchPauseIntervalString;
-            int batchPauseInterval;
-            if (items.TryGetValue(Office365SenderProfileProxy.Office365Keys.BatchPauseInterval, out batchPauseIntervalString) &&
-                int.TryParse(batchPauseIntervalString, out batchPauseInterval))
-            {
-                if (this.BatchPauseInterval != batchPauseInterval)
-                {
-                    this.BatchPauseInterval = batchPauseInterval;
-                    valueChanged = true;
-                }
-            }
-
-            return valueChanged;
-        }
-
-        private bool SetPort(IDictionary<string, string> items)
-        {
-            bool valueChanged = false;
-            string portString;
-            int port;
-            if (items.TryGetValue(SmtpSenderProfileProxy.Keys.Port, out portString) &&
-                int.TryParse(portString, out port))
-            {
-                if (this.Port != port)
-                {
-                    this.Port = port;
-                    valueChanged = true;
-                }
-            }
-
-            return valueChanged;
-        }
-
-        private bool SetHost(IDictionary<string, string> items)
-        {
-            bool valueChanged = false;
-            string host;
-            if (items.TryGetValue(SmtpSenderProfileProxy.Keys.Host, out host))
-            {
-                if (this.Host != host)
-                {
-                    this.Host = host;
-                    valueChanged = true;
-                }
-            }
-            else
-            {
-                throw new ArgumentException(string.Format("The '{0}' parameter must be specified for the smtp sender profile.", SmtpSenderProfileProxy.Keys.Host));
-            }
-
-            return valueChanged;
-        }
-
-        private bool SetUsername(IDictionary<string, string> items)
-        {
-            bool valueChanged = false;
-            string username;
-            if (items.TryGetValue(SmtpSenderProfileProxy.Keys.Username, out username))
-            {
-                if (this.Username != username)
-                {
-                    this.Username = username;
-                    valueChanged = true;
-                }
-            }
-
-            return valueChanged;
-        }
-
-        private bool SetPassword(IDictionary<string, string> items)
-        {
-            bool valueChanged = false;
-            string password;
-            if (items.TryGetValue(SmtpSenderProfileProxy.Keys.Password, out password))
-            {
-                if (this.Password != password)
-                {
-                    this.Password = password;
-                    valueChanged = true;
-                }
-            }
-
-            return valueChanged;
-        }
-
-        private bool SetUseSsl(IDictionary<string, string> items)
-        {
-            bool valueChanged = false;
-            bool useSsl;
-            string useSslString;
-            if (items.TryGetValue(SmtpSenderProfileProxy.Keys.UseSsl, out useSslString) &&
-                bool.TryParse(useSslString, out useSsl))
-            {
-                if (this.UseSSL != useSsl)
-                {
-                    this.UseSSL = useSsl;
-                    valueChanged = true;
-                }
             }
 
             return valueChanged;
