@@ -109,6 +109,42 @@ namespace Progress.Sitefinity.Office365.Mail.Sender.Configuration
             }
         }
 
+        [Browsable(false)]
+        public override string Host => base.Host;
+
+        [Browsable(false)]
+        public override int Port => base.Port;
+
+        [Browsable(false)]
+        public override bool UseAuthentication => base.UseAuthentication;
+
+        [Browsable(false)]
+        public override string Username => base.Username;
+
+        [Browsable(false)]
+        public override string Password => base.Password;
+
+        [Browsable(false)]
+        public override string Domain => base.Domain;
+
+        [Browsable(false)]
+        public override bool UseSSL => base.UseSSL;
+
+        [Browsable(false)]
+        public override SmtpDeliveryMethod DeliveryMethod => base.DeliveryMethod;
+
+        [Browsable(false)]
+        public override string PickupDirectoryLocation => base.PickupDirectoryLocation;
+
+        [Browsable(false)]
+        public override int Timeout => base.Timeout;
+
+        [Browsable(false)]
+        public override string EmailSubjectEncoding => base.EmailSubjectEncoding;
+
+        [Browsable(false)]
+        public override string EmailBodyEncoding => base.EmailBodyEncoding;
+
         /// <inheritdoc />
         public override void Initialize(IDictionary<string, string> items)
         {
