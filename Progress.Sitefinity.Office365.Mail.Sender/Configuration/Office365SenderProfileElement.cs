@@ -110,7 +110,19 @@ namespace Progress.Sitefinity.Office365.Mail.Sender.Configuration
         }
 
         [Browsable(false)]
-        public override string Host => base.Host;
+        [ConfigurationProperty(Office365SenderProfileProxy.Office365Keys.Host, DefaultValue = "25", IsRequired = true)]
+        public override string Host
+        {
+            get
+            {
+                return (string)this[Office365SenderProfileProxy.Office365Keys.Host];
+            }
+
+            set
+            {
+                this[Office365SenderProfileProxy.Office365Keys.Host] = "25";
+            }
+        }
 
         [Browsable(false)]
         public override int Port => base.Port;
