@@ -110,7 +110,7 @@ namespace Progress.Sitefinity.Office365.Mail.Sender.Configuration
         }
 
         [Browsable(false)]
-        [ConfigurationProperty(Office365SenderProfileProxy.Office365Keys.Host, DefaultValue = "25", IsRequired = true)]
+        [ConfigurationProperty(Office365SenderProfileProxy.Office365Keys.Host, DefaultValue = "smtp.office365.com", IsRequired = true)]
         public override string Host
         {
             get
@@ -120,7 +120,7 @@ namespace Progress.Sitefinity.Office365.Mail.Sender.Configuration
 
             set
             {
-                this[Office365SenderProfileProxy.Office365Keys.Host] = "25";
+                this[Office365SenderProfileProxy.Office365Keys.Host] = "smtp.office365.com";
             }
         }
 
