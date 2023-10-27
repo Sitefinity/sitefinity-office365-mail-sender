@@ -65,7 +65,10 @@ namespace Progress.Sitefinity.Office365.MailSender.Notifications
             foreach (var subscriber in subscribers)
             {
                 // format the template with the subscriber object
-                MessageInfo subscriberMessage = new MessageInfo(messageJob.MessageTemplate, messageJob.SenderEmailAddress, messageJob.SenderName);
+                var senderEmailAddress = string.IsNullOrEmpty(messageJob.SenderEmailAddress) ? messageJob.MessageTemplate.TemplateSenderEmailAddress : messageJob.SenderEmailAddress;
+                var senderName = string.IsNullOrEmpty(messageJob.SenderName) ? messageJob.MessageTemplate.TemplateSenderName : messageJob.SenderName;
+
+                MessageInfo subscriberMessage = new MessageInfo(messageJob.MessageTemplate, senderEmailAddress, senderName);
 
                 var subscriberResult = this.SendMessage(subscriberMessage, subscriber);
 
