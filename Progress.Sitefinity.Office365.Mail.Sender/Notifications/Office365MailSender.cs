@@ -170,7 +170,7 @@ namespace Progress.Sitefinity.Office365.MailSender.Notifications
             {
                 var scopes = profile.Scopes.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 
-                ClientSecretCredential credential = new ClientSecretCredential(profile.TenantId, profile.ClientId, profile.ClientSecret);
+                var credential = new ClientSecretCredential(profile.TenantId, profile.ClientId, profile.ClientSecret);
                 GraphServiceClient graphClient = new GraphServiceClient(credential, scopes);
 
                 return graphClient;

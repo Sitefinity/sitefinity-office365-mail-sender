@@ -1,5 +1,10 @@
 # Microsoft 365 mail sender for Sitefinity CMS
 
+>**Latest supported version**: Sitefinity CMS 15.4.8637.0
+
+>**IMPORTANT**: This repository may not be compatible with the latest or your current Sitefinity CMS version. If you want to use the repository with a specific Sitefinity CMS version, either upgrade the code from this repository or your Sitefinity CMS project to ensure compatibility.<br/>
+The dev team monitors the repository. You can create a GitHub issue to submit feedback or report bugs. Or make a pull request to submit project enhancements or compatibility changes that support new Sitefinity CMS versions.
+
 ## Overview
 This is a custom notification sender intended to be used with the Microsoft 365 email functionalities. In addition to the built-in notification profiles, it can be used to authenticate with the Microsoft 365 SMTP servers via OAuth and use them for outbound messages.
 
