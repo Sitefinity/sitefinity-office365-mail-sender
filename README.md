@@ -15,6 +15,20 @@ This repo contains a mail sender sample which works with the [Microsoft Graph AP
 - You must have a Microsoft 365 account with Exchange Online, an app registration in your Azure Active Directory and the respective client secret values and API permissions. 
 ## Installation and configuration
 For a step by step installation and configuration guide, see the [Sitefinity documentation](https://www.progress.com/documentation/sitefinity-cms/microsoft-365-mail-sender).
+
+### Required assembly binding redirect
+In your Sitefinity application's `web.config`, add the following redirect under `configuration/runtime/assemblyBinding`:
+
+```xml
+<dependentAssembly>
+	<assemblyIdentity name="Microsoft.Kiota.Abstractions"
+										publicKeyToken="31bf3856ad364e35"
+										culture="neutral" />
+	<bindingRedirect oldVersion="0.0.0.0-1.1.1.0"
+									 newVersion="1.1.1.0" />
+</dependentAssembly>
+```
+
 ## Additional resources
 For more information on how the Microsoft Graph API, which is used by the notification profile, works, see [this article](https://learn.microsoft.com/en-us/graph/use-the-api).
 
